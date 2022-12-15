@@ -586,7 +586,8 @@ function customer_export() {
 }
 
 function core_import() {
-  if prefix_is_bogon() then reject;
+  if prefix_is_bogon() then
+    reject "prefix is bogon - REJECTING ", net;
 
   if prefix_is_in_global_blacklist() then
     reject "prefix is in global blacklist - REJECTING ", net;
@@ -596,7 +597,8 @@ function core_import() {
 }
 
 function core_export() {
-  if prefix_is_bogon() then reject;
+  if prefix_is_bogon() then
+    reject "prefix is bogon - REJECTING ", net;
 
   if prefix_is_in_global_blacklist() then
     reject "prefix is in global blacklist - REJECTING ", net;
