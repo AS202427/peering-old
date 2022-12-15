@@ -129,6 +129,10 @@ protocol direct {
   ipv6;
 }
 
+<<<<<<< HEAD
+=======
+<%- if config.preferred_source.v4 -%>
+>>>>>>> upstream/main
 protocol kernel {
   scan time 10;
   ipv4 {
@@ -142,7 +146,13 @@ protocol kernel {
     };
   };
 }
+<<<<<<< HEAD
 
+=======
+<%- end -%>
+
+<%- if config.preferred_source.v6 -%>
+>>>>>>> upstream/main
 protocol kernel {
   scan time 10;
   ipv6 {
@@ -156,6 +166,10 @@ protocol kernel {
     };
   };
 }
+<<<<<<< HEAD
+=======
+<%- end -%>
+>>>>>>> upstream/main
 
 <%- if config.rpki -%>
 # --- RPKI ---
