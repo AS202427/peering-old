@@ -30,6 +30,9 @@ Octets in the function field are the numeric country identifier defined by ISO 3
 
 | Community | Description |
 | --------- | ----------- |
+| `YOUR_ASN:102:276` | Learned in Germany |
+| `YOUR_ASN:102:380` | Learned in Italy |
+| `YOUR_ASN:102:756` | Learned in Switzerland |
 | `YOUR_ASN:102:840` | Learned in U.S. |
 
 #### Site
