@@ -129,6 +129,7 @@ protocol direct {
   ipv6;
 }
 
+<%- if config.preferred_source.v4 -%>
 protocol kernel {
   scan time 10;
   ipv4 {
@@ -142,7 +143,9 @@ protocol kernel {
     };
   };
 }
+<%- end -%>
 
+<%- if config.preferred_source.v6 -%>
 protocol kernel {
   scan time 10;
   ipv6 {
@@ -156,6 +159,7 @@ protocol kernel {
     };
   };
 }
+<%- end -%>
 
 <%- if config.rpki -%>
 # --- RPKI ---
