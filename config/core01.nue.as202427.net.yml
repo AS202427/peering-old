@@ -1,0 +1,175 @@
+# The public Autonomous System Number of the border router that this
+# configuration is running on.
+asn: 202427
+
+# A unique identifer of this router, known as the "router ID". This is often an
+# IP address of the border router, as it's thought to be unique.
+router_id: '194.36.144.215'
+
+# The ISO 3166-1 country code of where the border router is operating. This is
+# used for BGP community support.
+region_id: 276 # DEU
+
+# A unique identifer of which physical site of the ASN the border router is
+# operating in. This is used for BGP community support.
+site_id: 2
+
+# The preferred source address of prefixes learned on export from the Kernel.
+# Used in source address selection for outgoing packets. Has to be one of the IP
+# addresses of the router. More information can be found in:
+# https://bird.network.cz/?get_doc&v=20&f=bird-6.html
+preferred_source:
+  v6: '2a03:4000:4d:fe1::'
+
+# The prefixes being originated by this router
+originations:
+  v6:
+    - '2a0e:97c0:5b0::/44'
+
+# Prefixes that should never be announced. Often IXP ranges should be placed
+# here to avoid leaking them to the world.
+blacklist:
+  v6:
+    - '2001:7f8:d9:5b::/64+'      # SBIX        Europe, Switzerland, Zurich
+    - '2001:7f8:d9:5a::/64+'      # SBIX DUS    Europe, Germany, Dusseldorf
+    - '2001:7f8:d9:5f::/64+'      # SBIX        Europe, Germany, Frankfurt
+    - '2001:7f8:d9:5d::/64+'      # SBIX TUU    North America, United States, Fremont
+    - '2001:7f8:d9:5c::/64+'      # SBIX LON    Europe, United Kingdom, London
+    - '2001:7f8:d9:56::/64+'      # SBIX        Europe, Romania, Bucharest
+    - '2001:7f8:d0::/64+'         # 4IXP        Europe, Switzerland, Zurich
+    - '2001:7f8:ca:1::/64+'       # FogIXP      Europe, Switzerland, Avers
+    - '2001:7F8:13::/64+'         # NL-IX       Europe, Netherlands, Amsterdam
+    - '2a0c:3b80:4040:4649::/64+' # IXP HEL     Europe, Finland, Helsinki
+    - '2001:7f8:d0:4649::/64+'    # IXP HEL     Europe, Finland, Helsinki
+    - '2a0c:3b80:4040:5553::/64+' # IXP LEN     North America, United States, Fremont
+    - '2001:7f8:d0:5553::/64+'    # IXP LEN     North America, United States, Fremont
+    - '2a0c:3b80:4040:4742::/64+' # IXP LON     Europe, United Kingdom, London
+    - '2001:7f8:d0:4742::/64+'    # IXP LON     Europe, United Kingdom, London
+    - '2001:7f8:d0:4c49::/64+'    # IXP VAD     Europe, Liechtenstein, Vaduz
+    - '2001:7f8:d0:4652::/64+'    # IXP VAD     Europe, Liechtenstein, Vaduz
+    - '2a0c:3b80:4040:4652::/64+' # IXP VAD     Europe, Liechtenstein, Vaduz
+    - '2001:7f8:cc::/48+'         # CH-IX       Europe, Switzerland, Frauenfeld
+    - '2001:7f8:f2:e1::/64+'      # LocIX       Europe, Germany, Frankfurt
+
+# Define any static routes that you would like to define in BIRD here.
+# If you're originating routes on this BIRD instance that aren't learned
+# elsewhere, you'll need to add "unreachable" static routes in order for them
+# to be originated.
+static_routes:
+  v6:
+    - '2a0e:97c0:5b0::/44 unreachable'
+
+# The RPKI RTR address and port for dropping RPKI invalids.
+rpki:
+  host: 'core01.nue.as202427.net'
+  port: 8282
+
+bgp:
+  # Upstreams are BGP sessions that give you a full table and you want to
+  # announce your own originations and customer prefixes to.
+  # upstreams:
+  #   sessions:
+  #     - description: 'Route64 via Tunnel'
+  #       asn: 212895
+  #       local:
+  #         v6: '2a0f:5707:abf8:144::2'
+  #       remote:
+  #         v6: '2a0f:5707:abf8:144::1'
+
+  # Telemetry sessions can be used to track the flow of packets across the
+  # network. In this case, we're using pmacctd as outlined in
+  # https://brooks.sh/2019/11/17/network-flow-analysis-with-prometheus.
+  telemetries:
+    sessions:
+      - description: 'pmacctd'
+        asn: 202427
+        # An alias can be used to create a custom name for the BIRD BGP session.
+        alias: 'pmacctd'
+        # Route reflectors allow you to advertise iBGP learned routes to peers.
+        route_reflector: true
+        local:
+          v4: '127.0.0.1'
+        remote:
+          # A port can be used if BGP needs to be established over something
+          # other than the default of 179.
+          port: 180
+          v4: '127.0.0.2'
+
+  # With a looking glass session, you pass a full table to the looking glass so
+  # that external users can debug paths in your network. We do not accept any
+  # prefixes from looking glasses.
+  looking_glasses:
+    sessions:
+      # - description: 'NLNOG RING'
+      #   asn: 199036
+      #   multihop: true
+      #   local:
+      #     v6: '2a09:4c0:100:2d88::8964'
+      #   remote:
+      #     v6: '2001:888:2001::130'
+      - description: 'Radar by Qrator'
+        asn: 197068
+        multihop: true
+        md5: qrator
+        local:
+          v6: '194.36.144.215'
+        remote:
+          v6: '178.248.237.29'
+      - description: 'Securebit Route Collector'
+        asn: 44393
+        multihop: true
+        md5: TCl2Koo9xWhq7rj
+        local:
+          v6: '2a03:4000:4d:fe1::'
+        remote:
+          v6: '2a01:4f8:c17:ec87::310c:46de'
+
+  # A core router session is just an iBGP session (a BGP session where both
+  # peers share the same ASN).
+  cores:
+    sessions:
+      - description: 'FRA 01 / DE 01'
+        asn: 202427
+        alias: 'ixp_fra_01'
+        route_reflector: true
+        local:
+          v6: '2a0e:97c0:5b2:1::'
+        remote:
+          v6: '2a0e:97c0:5b2:2::'
+      - description: 'ZHR 01 / CH 01'
+        asn: 202427
+        alias: 'ixp_zhr_01'
+        route_reflector: true
+        local:
+          v6: '2a0e:97c0:5b2:1::'
+        remote:
+          v6: '2a0e:97c0:5b2:3::'
+      - description: 'ZHR 02 / CH 02'
+        asn: 202427
+        alias: 'ixp_zhr_02'
+        route_reflector: true
+        local:
+          v6: '2a0e:97c0:5b2:1::'
+        remote:
+          v6: '2a0e:97c0:5b2:4::'
+      - description: 'MIL 01 / IT 01'
+        asn: 202427
+        alias: 'ixp_mil_01'
+        route_reflector: true
+        local:
+          v6: '2a0e:97c0:5b2:1::'
+        remote:
+          v6: '2a0e:97c0:5b2:5::'
+
+  # peers:
+  #   defaults:
+  #     local:
+  #       v6: '2a03:4000:4d:fe1::'
+  #   sessions:
+  #     - description: 'MIL 01 / IT 01'
+  #       asn: 202427
+  #       alias: 'ixp_mil_01'
+  #       local:
+  #         v6: '10.0.2.2'
+  #       remote:
+  #         v6: '10.0.3.1'
