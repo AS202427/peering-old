@@ -30,15 +30,10 @@ originations:
 # here to avoid leaking them to the world.
 blacklist:
   v6:
-    - '2001:7f8:d9:5b::/64+'      # SBIX        Europe, Switzerland, Zurich
-    - '2001:7f8:d9:5a::/64+'      # SBIX DUS    Europe, Germany, Dusseldorf
-    - '2001:7f8:d9:5f::/64+'      # SBIX        Europe, Germany, Frankfurt
-    - '2001:7f8:d9:5d::/64+'      # SBIX TUU    North America, United States, Fremont
-    - '2001:7f8:d9:5c::/64+'      # SBIX LON    Europe, United Kingdom, London
-    - '2001:7f8:d9:56::/64+'      # SBIX        Europe, Romania, Bucharest
-    - '2001:7f8:d0::/64+'         # 4IXP        Europe, Switzerland, Zurich
-    - '2001:7f8:ca:1::/64+'       # FogIXP      Europe, Switzerland, Avers
-    - '2001:7F8:13::/64+'         # NL-IX       Europe, Netherlands, Amsterdam
+    - '2001:7f8:d9::/48+'         # SBIX        Europe, Switzerland, Zurich
+    - '2001:7f8:d0::/48+'         # 4IXP        Europe, Switzerland, Zurich
+    - '2001:7f8:ca::/48+'         # FogIXP      Europe, Switzerland, Avers
+    - '2001:7F8:13::/48+'         # NL-IX       Europe, Netherlands, Amsterdam
     - '2a0c:3b80:4040:4649::/64+' # IXP HEL     Europe, Finland, Helsinki
     - '2001:7f8:d0:4649::/64+'    # IXP HEL     Europe, Finland, Helsinki
     - '2a0c:3b80:4040:5553::/64+' # IXP LEN     North America, United States, Fremont
@@ -49,7 +44,7 @@ blacklist:
     - '2001:7f8:d0:4652::/64+'    # IXP VAD     Europe, Liechtenstein, Vaduz
     - '2a0c:3b80:4040:4652::/64+' # IXP VAD     Europe, Liechtenstein, Vaduz
     - '2001:7f8:cc::/48+'         # CH-IX       Europe, Switzerland, Frauenfeld
-    - '2001:7f8:f2:e1::/64+'      # LocIX       Europe, Germany, Frankfurt
+    - '2001:7f8:f2::/48+'         # LocIX       Europe, Germany, Frankfurt
 
 # Define any static routes that you would like to define in BIRD here.
 # If you're originating routes on this BIRD instance that aren't learned
