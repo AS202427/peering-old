@@ -26,6 +26,9 @@ protocol bgp <%= session_name(session) %> from <%= session_template_name(session
   <%- if session.multihop -%>
   multihop;
   <%- end -%>
+  <%- if session.role -%>
+  local role <%= session.role %>;
+  <%- end -%>
   <%- if session.overrides_template? -%>
 
 <%= session.custom_import_and_export_template %>

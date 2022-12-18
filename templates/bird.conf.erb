@@ -632,6 +632,7 @@ template bgp peer4 {
   hold time 90;
   keepalive time 30;
   graceful restart;
+  local role peer;
 
   ipv4 {
     next hop self;
@@ -646,6 +647,7 @@ template bgp peer6 {
   hold time 90;
   keepalive time 30;
   graceful restart;
+  local role peer;
 
   ipv6 {
     next hop self;
@@ -660,6 +662,7 @@ template bgp customer4 {
   hold time 90;
   keepalive time 30;
   graceful restart;
+  local role provider;
 
   ipv4 {
     next hop self;
@@ -674,6 +677,7 @@ template bgp customer6 {
   hold time 90;
   keepalive time 30;
   graceful restart;
+  local role provider;
 
   ipv6 {
     next hop self;
@@ -688,6 +692,7 @@ template bgp core4 {
   hold time 90;
   keepalive time 30;
   graceful restart;
+  local role provider;
 
   ipv4 {
     next hop self;
@@ -702,6 +707,7 @@ template bgp core6 {
   hold time 90;
   keepalive time 30;
   graceful restart;
+  local role provider;
 
   ipv6 {
     next hop self;
@@ -716,6 +722,7 @@ template bgp upstream4 {
   hold time 90;
   keepalive time 30;
   graceful restart;
+  local role customer;
 
   ipv4 {
     next hop self;
@@ -730,6 +737,7 @@ template bgp upstream6 {
   hold time 90;
   keepalive time 30;
   graceful restart;
+  local role customer;
 
   ipv6 {
     next hop self;
@@ -744,10 +752,12 @@ template bgp lookingglass4 {
   hold time 90;
   keepalive time 30;
   graceful restart;
+  local role provider;
 
   ipv4 {
     next hop self;
 
+    import limit 0;
     import keep filtered;
     import filter { reject; };
     export where customer_export();
@@ -758,10 +768,12 @@ template bgp lookingglass6 {
   hold time 90;
   keepalive time 30;
   graceful restart;
+  local role provider;
 
   ipv6 {
     next hop self;
 
+    import limit 0;
     import keep filtered;
     import filter { reject; };
     export where customer_export();
@@ -773,15 +785,20 @@ template bgp telemetry4 {
   keepalive time 30;
   graceful restart;
   rr client;
+  local role provider;
 
   ipv4 {
     next hop self;
+
+    import limit 0;
     import filter { reject; };
     export filter { accept; };
   };
 
   ipv6 {
     next hop address 127.0.0.1;
+
+    import limit 0;
     import filter { reject; };
     export filter { accept; };
   };
