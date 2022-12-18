@@ -13,7 +13,9 @@
     <%- end -%>
       peer_import();
     };
-
+  <%- end -%>
+  <%- if session.import_limit -%>
+    import limit <%= session.import_limit %>;
   <%- end -%>
     export filter {
       <%- if session.communities&.export -%>
@@ -25,4 +27,7 @@
       handle_as_specific_no_export(<%= session.asn %>);
       peer_export();
     };
+  <%- if session.export_limit -%>
+    export limit <%= session.export_limit %>;
+  <%- end -%>
   };

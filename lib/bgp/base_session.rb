@@ -5,7 +5,8 @@ module BGP
   class BaseSession
     attr_reader :protocol_number, :description, :asn, :local, :remote,
       :remote_port, :md5, :irr, :alias, :disabled, :allowed_prefixes,
-      :defaults, :route_reflector, :multihop, :communities, :index
+      :defaults, :route_reflector, :multihop, :role, :import_limit,
+      :export_limit, :communities, :index
 
     def initialize(
       protocol_number:,
@@ -22,6 +23,9 @@ module BGP
       defaults: nil,
       route_reflector: nil,
       multihop: nil,
+      role: nil,
+      import_limit: nil,
+      export_limit: nil,
       communities: nil,
       index: nil
     )
@@ -37,6 +41,9 @@ module BGP
       @disabled = disabled
       @route_reflector = route_reflector
       @multihop = multihop
+      @role = role
+      @import_limit = import_limit
+      @export_limit = export_limit
       @index = index
 
       if communities
