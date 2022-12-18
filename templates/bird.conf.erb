@@ -692,7 +692,6 @@ template bgp core4 {
   hold time 90;
   keepalive time 30;
   graceful restart;
-  local role provider;
 
   ipv4 {
     next hop self;
@@ -707,7 +706,6 @@ template bgp core6 {
   hold time 90;
   keepalive time 30;
   graceful restart;
-  local role provider;
 
   ipv6 {
     next hop self;
@@ -752,7 +750,6 @@ template bgp lookingglass4 {
   hold time 90;
   keepalive time 30;
   graceful restart;
-  local role provider;
 
   ipv4 {
     next hop self;
@@ -768,7 +765,6 @@ template bgp lookingglass6 {
   hold time 90;
   keepalive time 30;
   graceful restart;
-  local role provider;
 
   ipv6 {
     next hop self;
@@ -785,7 +781,6 @@ template bgp telemetry4 {
   keepalive time 30;
   graceful restart;
   rr client;
-  local role provider;
 
   ipv4 {
     next hop self;
