@@ -53,6 +53,8 @@ module BGP
         defaults: defaults,
         route_reflector: attrs.dig('route_reflector'),
         multihop: attrs.dig('multihop'),
+        import_limit: attrs.dig('import_limit'),
+        export_limit: attrs.dig('export_limit'),
         communities: attrs.dig('communities'),
         index: index
       )
