@@ -95,7 +95,7 @@ If you use this as a [GitHub Repository template](https://github.blog/2019-06-06
 ```
 git remote add upstream https://github.com/as202427/peering-template.git
 git fetch upstream
-git merge upstream/master --allow-unrelated-histories
+git merge upstream/main --allow-unrelated-histories
 ```
 
 ## Roadmap
